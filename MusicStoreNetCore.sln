@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2C5478B4-5BAC-437C-AEE3-34298D359751}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9CA766CC-637E-4285-87D2-B64255A8640C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStoreNetCore", "src\MusicStoreNetCore\MusicStoreNetCore.csproj", "{FC072BAD-AB57-4172-B27A-1802E5225FEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC072BAD-AB57-4172-B27A-1802E5225FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC072BAD-AB57-4172-B27A-1802E5225FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC072BAD-AB57-4172-B27A-1802E5225FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC072BAD-AB57-4172-B27A-1802E5225FEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FC072BAD-AB57-4172-B27A-1802E5225FEE} = {2C5478B4-5BAC-437C-AEE3-34298D359751}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B7772F3-6D02-487E-87D4-E26DFD0E4321}
+	EndGlobalSection
+EndGlobal
