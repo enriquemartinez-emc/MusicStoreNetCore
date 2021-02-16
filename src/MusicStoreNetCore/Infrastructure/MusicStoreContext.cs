@@ -24,7 +24,7 @@ namespace MusicStoreNetCore.Infrastructure
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
-            builder.Entity<Artist>().ToTable("Album");
+            builder.Entity<Artist>().ToTable("Artist");
 
             builder.Entity<Genre>().ToTable("Genre");
 

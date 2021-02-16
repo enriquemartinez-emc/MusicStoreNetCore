@@ -11,9 +11,10 @@ namespace MusicStoreNetCore.Domain
         public string Title { get; set; }
         public decimal Price { get; set; }
         public string AlbumArtUrl { get; set; }
+        [JsonIgnore]
         public Genre Genre { get; set; }
+        [JsonIgnore]
         public Artist Artist { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
-        public DateTime Created { get; set; }
     }
 }
