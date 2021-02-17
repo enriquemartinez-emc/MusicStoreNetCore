@@ -7,7 +7,7 @@ namespace MusicStoreNetCore.Domain
     {
         [JsonIgnore]
         public int CartId { get; set; }
-        public string UniqueId { get; set; }
+        public Guid UniqueId { get; set; }
         public int Count { get; set; }
         public Album Album { get; set; }
         public DateTime DateCreated { get; set; }
