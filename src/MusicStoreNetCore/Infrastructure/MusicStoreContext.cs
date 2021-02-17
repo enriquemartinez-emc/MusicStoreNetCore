@@ -14,7 +14,7 @@ namespace MusicStoreNetCore.Infrastructure
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Cart> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -38,7 +38,7 @@ namespace MusicStoreNetCore.Infrastructure
                .Property(t => t.UnitPrice)
                .HasColumnType("decimal(18,2)");
 
-            builder.Entity<CartItem>().ToTable("CartItem");
+            builder.Entity<Cart>().ToTable("CartItem");
         }
     }
 }
