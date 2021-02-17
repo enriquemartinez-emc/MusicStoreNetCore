@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MusicStoreNetCore.Features.Albums
 {
-    [Route("api/genres")]
+    [Route("api/albums")]
     [ApiController]
     public class AlbumsController : ControllerBase
     {
@@ -16,10 +16,16 @@ namespace MusicStoreNetCore.Features.Albums
             _mediator = mediator;
         }
 
-        [HttpGet("{genreId}/albums")]
-        public Task<AlbumsEnvelope> Get(int genreId, CancellationToken cancellationToken, bool isTopSellingAlBums = false)
+        [HttpGet]
+        public Task<AlbumsEnvelope> Get([FromQuery] int? genreId, [FromQuery] int? limit, [FromQuery] int? offset, CancellationToken cancellationToken, bool isTopSelling = false)
         {
-            return _mediator.Send(new List.Query(genreId, isTopSellingAlBums), cancellationToken);
+            return _mediator.Send(new List.Query(genreId, limit, offset, isTopSelling), cancellationToken);
+        }
+
+        [HttpGet("{albumId}")]
+        public Task<AlbumEnvelope> Get(int albumId, CancellationToken cancellationToken)
+        {
+            return _mediator.Send(new Details.Query(albumId), cancellationToken);
         }
     }
 }
