@@ -5,10 +5,11 @@ namespace MusicStoreNetCore.Domain
 {
     public class Genre
     {
-        [JsonIgnore]
         public int GenreId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        [JsonIgnore]
         public List<Album> Albums { get; set; }
     }
 }
