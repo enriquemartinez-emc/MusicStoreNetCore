@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MusicStoreNetCore.Domain;
 using MusicStoreNetCore.Infrastructure;
 using System.Linq;
 using System.Threading;
@@ -9,7 +10,7 @@ namespace MusicStoreNetCore.Features.Albums
 {
     public class List
     {
-        public record Query(int GenreId, bool IsTopSellingQuery = false) : IRequest<AlbumsEnvelope>;
+        public record Query(int? GenreId, int? Limit, int? Offset, bool IsTopSelling = false) : IRequest<AlbumsEnvelope>;
 
         public class QueryHandler : IRequestHandler<Query, AlbumsEnvelope>
         {
@@ -22,23 +23,46 @@ namespace MusicStoreNetCore.Features.Albums
 
             public async Task<AlbumsEnvelope> Handle(Query request, CancellationToken cancellationToken)
             {
-                if (request.IsTopSellingQuery)
+                var queryable = _context.Albums
+                    .Include(x => x.Genre)
+                    .Include(x => x.OrderDetails)
+                    .AsNoTracking();
+
+                if (request.IsTopSelling)
                 {
-                    var topSellingAlbums = await _context.Albums
-                            .OrderByDescending(a => a.OrderDetails.Count)
+                    var topSellingAlbums = await queryable
+                            .OrderByDescending(x => x.OrderDetails.Count)
                             .Take(6)
-                            .AsNoTracking()
                             .ToListAsync(cancellationToken);
 
-                    return new AlbumsEnvelope(topSellingAlbums);
+                    return new AlbumsEnvelope
+                    {
+                        Albums = topSellingAlbums,
+                        AlbumsCount = 6
+                    };
                 }
 
-                var genres = await _context.Genres
-                            .Include(x => x.Albums)
-                            .AsNoTracking()
-                            .FirstOrDefaultAsync(x => x.GenreId == request.GenreId, cancellationToken);
+                if (request.GenreId != null)
+                {
+                    var genre = await _context.Genres.FirstOrDefaultAsync(x => x.GenreId == request.GenreId, cancellationToken);
+                    if (genre == null)
+                    {
+                        return new AlbumsEnvelope();
+                    }
+                    queryable = queryable.Where(x => x.Genre == genre);
+                }
 
-                return new AlbumsEnvelope(genres.Albums);
+                var albums = await queryable
+                    .OrderByDescending(x => x.AlbumId)
+                    .Skip(request.Offset ?? 0)
+                    .Take(request.Limit ?? 20)
+                    .ToListAsync(cancellationToken);
+
+                return new AlbumsEnvelope
+                {
+                    Albums = albums,
+                    AlbumsCount = queryable.Count()
+                };
             }
         }
 
