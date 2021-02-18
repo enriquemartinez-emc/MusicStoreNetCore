@@ -16,10 +16,7 @@ namespace MusicStoreNetCore.Features.Albums
         {
             private readonly MusicStoreContext _context;
 
-            public QueryHandler(MusicStoreContext context)
-            {
-                _context = context;
-            }
+            public QueryHandler(MusicStoreContext context) => _context = context;
 
             public async Task<AlbumsEnvelope> Handle(Query request, CancellationToken cancellationToken)
             {

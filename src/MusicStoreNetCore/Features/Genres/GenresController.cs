@@ -11,10 +11,7 @@ namespace MusicStoreNetCore.Features.Genres
     {
         private readonly IMediator _mediator;
 
-        public GenresController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public GenresController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public Task<GenresEnvelope> Get(CancellationToken cancellationToken)

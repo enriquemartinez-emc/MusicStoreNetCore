@@ -11,10 +11,7 @@ namespace MusicStoreNetCore.Features.Albums
     {
         private readonly IMediator _mediator;
 
-        public AlbumsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public AlbumsController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public Task<AlbumsEnvelope> Get([FromQuery] int? genreId, [FromQuery] int? limit, [FromQuery] int? offset, CancellationToken cancellationToken, bool isTopSelling = false)
