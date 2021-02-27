@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MusicStoreNetCore.Domain;
 using MusicStoreNetCore.Infrastructure;
 using System.Linq;
 using System.Threading;
@@ -20,14 +19,10 @@ namespace MusicStoreNetCore.Features.Albums
 
             public async Task<AlbumsEnvelope> Handle(Query request, CancellationToken cancellationToken)
             {
-                var queryable = _context.Albums
-                    .Include(x => x.Genre)
-                    .Include(x => x.OrderDetails)
-                    .AsNoTracking();
-
                 if (request.IsTopSelling)
                 {
-                    var topSellingAlbums = await queryable
+                    var topSellingAlbums = await _context.Albums
+                            .Include(x => x.OrderDetails)
                             .OrderByDescending(x => x.OrderDetails.Count)
                             .Take(6)
                             .ToListAsync(cancellationToken);
@@ -38,6 +33,11 @@ namespace MusicStoreNetCore.Features.Albums
                         AlbumsCount = 6
                     };
                 }
+
+                var queryable = _context.Albums
+                    .Include(x => x.Genre)
+                    .Include(x => x.OrderDetails)
+                    .AsNoTracking();
 
                 if (request.GenreId != null)
                 {
