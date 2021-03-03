@@ -29,7 +29,7 @@ namespace MusicStoreNetCore.Features.Albums
                 {
                     var topSellingAlbums = await queryable
                             .OrderByDescending(x => x.OrderDetails.Count)
-                            .Take(6)
+                            .Take(3)
                             .ToListAsync(cancellationToken);
 
                     return new AlbumsEnvelope
